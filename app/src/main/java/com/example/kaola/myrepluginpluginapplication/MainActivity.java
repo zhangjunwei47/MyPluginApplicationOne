@@ -2,6 +2,7 @@ package com.example.kaola.myrepluginpluginapplication;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -23,6 +24,9 @@ public class MainActivity extends Activity {
             public void run() {
                 aidlTest();
                 showFragment();
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, MyServiceTest.class);
+                startService(intent);
             }
         }, 2000);
 

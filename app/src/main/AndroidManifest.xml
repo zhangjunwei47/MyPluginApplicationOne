@@ -30,6 +30,7 @@
                 <action android:name="com.kaola.broadcast.test" />
             </intent-filter>
         </receiver>
+        <service android:name=".MyServiceTest"/>
     </application>
 
 
