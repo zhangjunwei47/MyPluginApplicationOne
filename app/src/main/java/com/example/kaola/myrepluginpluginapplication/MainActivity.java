@@ -3,9 +3,14 @@ package com.example.kaola.myrepluginpluginapplication;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
+import com.example.kaola.mypluginapplicationtwo.IMyAidlInterface;
+import com.qihoo360.replugin.RePlugin;
 
 public class MainActivity extends Activity {
 
@@ -16,6 +21,7 @@ public class MainActivity extends Activity {
         findViewById(R.id.test_view).postDelayed(new Runnable() {
             @Override
             public void run() {
+                aidlTest();
                 showFragment();
             }
         }, 2000);
@@ -33,6 +39,22 @@ public class MainActivity extends Activity {
         return super.onCreateView(name, context, attrs);
     }
 
+    private void aidlTest()
+    {
+        IBinder iBinder = RePlugin.fetchBinder("com.example.kaola.mypluginapplicationtwo", "MyAidlTest");
+        if(iBinder == null)
+        {
+            return;
+        }
+
+        IMyAidlInterface iMyAidlInterface = IMyAidlInterface.Stub.asInterface(iBinder);
+        try {
+            iMyAidlInterface.basicTypes(10000, 0, false,0,0,"我是plugin one");
+        }catch (Exception e)
+        {
+            Log.e("logx","xxxxxx e = "+ e.getMessage());
+        }
+    }
 
     private void showFragment() {
         FirstTestFragment f1 = new FirstTestFragment();
